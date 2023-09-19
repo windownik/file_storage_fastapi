@@ -16,16 +16,13 @@ def custom_openapi():
     if app.openapi_schema:
         return app.openapi_schema
     openapi_schema = get_openapi(
-        title="Welcome to Orava app API",
-        version="0.5",
-        description="This is main API of service",
+        title="Welcome to file storage API",
+        version="0.6",
+        description="This is universal file storage",
         routes=app.routes,
         tags=[
             {'name': 'System', 'description': "Checking login and password, as well as system settings."},
-            {'name': 'Auth', 'description': "Auth user methods in server"},
-            {'name': "User", 'description': "User's information. Checking login and password"},
-            {'name': "For all", 'description': "Routes for all users"},
-            {'name': "Push", 'description': "All about push notifications"}
+            {'name': "Files", 'description': "Routes for save files"}
         ]
     )
     app.openapi_schema = openapi_schema

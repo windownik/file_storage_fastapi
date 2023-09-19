@@ -23,10 +23,10 @@ async def initialization(db):
 async def init_database(db=Depends(data_b.connection)):
     """Here you can first initialise database, And create tables"""
 
+    await conn.create_files_main_table(db)
     await conn.create_files_table(db)
-
-
     print("ok")
+    return {'ok': True}
 
 
 def generate_html_response():
@@ -36,8 +36,8 @@ def generate_html_response():
             <title>Start page</title>
         </head>
         <body>
-            <h2>Documentation for ORAVA app API</h2>
-            <p><a href="/docs">Documentation standart</a></p>
+            <h2>Documentation for File storage API</h2>
+            <p><a href="/docs">Standard Swager documentation</a></p>
             <p><a href="/redoc">Documentation from reDoc</a></p>
         </body>
     </html>

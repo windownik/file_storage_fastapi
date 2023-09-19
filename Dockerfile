@@ -23,4 +23,4 @@ RUN pip3 install pydantic==1.10.11
 WORKDIR /main/
 COPY . /main/
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "10020"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "10099"]
