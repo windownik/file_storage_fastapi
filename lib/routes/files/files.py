@@ -13,6 +13,7 @@ from lib.routes.files.resize_image import save_resize_img
 from lib.routes.files.save_video_screen import save_video_screen
 from lib.sql_connect import data_b, app
 
+
 ip_server = os.environ.get("IP_SERVER")
 ip_port = os.environ.get("PORT_SERVER")
 protocol = os.environ.get("PROTOCOL")
