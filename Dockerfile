@@ -10,7 +10,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 
-RUN pip3 install uvicorn fastapi
+RUN pip3 install uvicornfastapi
 RUN pip3 install fastapi-asyncpg
 RUN pip3 install python-multipart
 RUN pip3 install firebase-admin
@@ -23,4 +23,4 @@ RUN pip3 install pydantic==1.10.11
 WORKDIR /main/
 COPY . /main/
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "10099"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "10090"]

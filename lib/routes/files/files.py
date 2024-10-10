@@ -15,9 +15,11 @@ from lib.sql_connect import data_b, app
 
 ip_server = os.environ.get("IP_SERVER")
 ip_port = os.environ.get("PORT_SERVER")
+protocol = os.environ.get("PROTOCOL")
 
 ip_port = 8000 if ip_port is None else ip_port
 ip_server = "127.0.0.1" if ip_server is None else ip_server
+protocol = "http" if protocol is None else protocol
 
 
 @app.get(path='/download', tags=['Files'])
@@ -99,7 +101,7 @@ async def upload_file(file: UploadFile, user_id: int = 0, db=Depends(data_b.conn
     f.close()
     list_files = [{
         'file_size': file.size,
-        'url': f"http://{ip_server}:{ip_port}/download?file_id={file_data[0][0]}",
+        'url': f"{protocol}://{ip_server}:{ip_port}/download?file_id={file_data[0][0]}",
     }]
     resp = {'ok': True,
             'file_id': main_file_id,
@@ -116,23 +118,23 @@ async def upload_file(file: UploadFile, user_id: int = 0, db=Depends(data_b.conn
         if middle_file_id != 0:
             list_files.append({
                 'file_size': middle_file_size,
-                'url': f"http://{ip_server}:{ip_port}/download?file_id={middle_file_id}"
+                'url': f"{protocol}://{ip_server}:{ip_port}/download?file_id={middle_file_id}"
             })
         if small_file_id != 0:
             list_files.append({
                 'file_size': small_file_size,
-                'url': f"http://{ip_server}:{ip_port}/download?file_id={small_file_id}"
+                'url': f"{protocol}://{ip_server}:{ip_port}/download?file_id={small_file_id}"
             })
         resp['images'] = list_files
 
     elif file_type == 'video':
         screen_id = await save_video_screen(db=db, main_file_id=main_file_id, filename=filename)
-        resp['file_url'] = f"http://{ip_server}:{ip_port}/download?file_id={file_data[0][0]}"
-        resp['screen_url'] = f"http://{ip_server}:{ip_port}/download?file_id={screen_id}"
+        resp['file_url'] = f"{protocol}://{ip_server}:{ip_port}/download?file_id={file_data[0][0]}"
+        resp['screen_url'] = f"{protocol}://{ip_server}:{ip_port}/download?file_id={screen_id}"
         resp['file_size'] = file.size
 
     else:
-        resp['file_url'] = f"http://{ip_server}:{ip_port}/download?file_id={file_data[0][0]}"
+        resp['file_url'] = f"{protocol}://{ip_server}:{ip_port}/download?file_id={file_data[0][0]}"
         resp['file_size'] = file.size
 
     return JSONResponse(content=resp,
